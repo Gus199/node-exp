@@ -1,9 +1,18 @@
-const Joi = require("joi");
+
+const morgan = require('morgan')
 const express = require("express");
-const func = require("joi/lib/types/func");
+const loger = require('./logger')
+const auth = require('./auth')
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({extended: true}))
+app.use(express.static('public'))
+app.use(morgan('tiny'))
+app.use(loger)
+app.use(auth)
+
+
 
 const port = process.env.PORT || 3000;
 
